@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 const Navbar = () => {
     return (
-      <header className="sticky top-0 z-50 text-slate-400 bg-[#b9223b] ">
+      <header className="sticky top-0 z-50 text-slate-400  bg-gradient-to-br from-[#b9223b] to-[#df4861] ">
         <div className="flex items-center justify-between py-4 px-4 sm:px-8 md:px-16">
           {/* Logo */}
           <div className="flex items-center">

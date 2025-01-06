@@ -7,7 +7,7 @@ import { FaSquareInstagram } from "react-icons/fa6";
 
 const About = () => {
     return (
-      <section className="text-slate-900 body-font overflow-hidden bg-[#df4861] ">
+      <section className="text-slate-900 body-font overflow-hidden ">
         <div className="container mx-auto px-5 py-24">
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between space-y-10 lg:space-y-0 lg:space-x-10">
             {/* Image Section */}
@@ -20,7 +20,7 @@ const About = () => {
                   width={250}
                   className="rounded-full shadow-xl transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-purple-500 opacity-20 rounded-full"></div>
+               
               </div>
             </div>
   
