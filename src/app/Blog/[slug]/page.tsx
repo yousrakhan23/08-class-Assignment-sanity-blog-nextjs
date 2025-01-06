@@ -5,14 +5,14 @@ export async function getStaticPaths() {
   const query = `*[_type == "blog"]{ slug }`;
   const blogs = await client.fetch(query);
 
-  const paths = blogs.map((blog:any) => ({
+  const paths = blogs.map((blog: { slug: { current: string } }) => ({
     params: { slug: blog.slug.current },
   }));
 
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }:any) {
+export async function getStaticProps({ params }: { params: { slug: string } }) {
   const query = `*[_type == "blog" && slug.current == $slug][0]{
     title,
     description,
@@ -26,11 +26,17 @@ export async function getStaticProps({ params }:any) {
   };
 }
 
-export default function BlogDetail({ blog }:any) {
+interface Blog {
+  title: string;
+  description: string;
+  imageUrl?: string;
+}
+
+export default function BlogDetail({ blog }: { blog: Blog }) {
   return (
     <div>
       <h1>{blog.title}</h1>
-      {blog.imageUrl && <img src={blog.imageUrl} alt={blog.title} />}
+      {blog.imageUrl && <img src={blog.imageUrl} alt={blog.title}/>}
       <p>{blog.description}</p>
     </div>
   );

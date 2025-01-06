@@ -28,7 +28,7 @@ export default async function HomePage() {
       </div>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {blogs.map((blog: any) => (
+        {blogs.map((blog: { _id: string; title: string; description: string; slug: { current: string }; imageUrl?: string }) => (
           <li
             key={blog._id}
             className="bg-white border-4 border-yellow-400 shadow-md rounded-lg overflow-hidden"
@@ -41,6 +41,7 @@ export default async function HomePage() {
               <img
                 src={blog.imageUrl}
                 alt={blog.title}
+                
                 className="w-full h-auto object-cover"
               />
             )}
