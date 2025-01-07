@@ -1,80 +1,68 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import myProfile from "../../../public/images/mine.jpg";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { FaSquareInstagram } from "react-icons/fa6";
+import { client } from "@/sanity/lib/client";
+import { EB_Garamond } from "next/font/google";
+import { Lora } from "next/font/google";
+const ebGaramond = EB_Garamond({ weight: "800", subsets: ["latin"] });
+const lora = Lora({ weight: "700", subsets: ["latin"] });
 
-const About = () => {
-    return (
-      <section className="text-slate-900 body-font overflow-hidden ">
-        <div className="container mx-auto px-5 py-24">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between space-y-10 lg:space-y-0 lg:space-x-10">
-            {/* Image Section */}
-            <div className="w-full lg:w-1/3 flex justify-center lg:justify-start">
-              <div className="relative group">
-                <Image
-                  src={myProfile}
-                  alt="my profile"
-                  height={100}
-                  width={250}
-                  className="rounded-full shadow-xl transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3"
-                />
-               
-              </div>
-            </div>
-  
-            {/* Text Section */}
-            <div className="w-full lg:w-2/3 text-center lg:text-left">
-              <h1
-                className="text-5xl font-serif font-bold text-[#F2AE66] cursor-pointer transition-colors duration-500" 
-              >
-                About Me
+export default async function AboutPage() {
+  const query = `*[_type == "about"]{
+    _id,
+    title,
+    description,
+    "imageUrl": image.asset->url,
+    slug
+  }`;
+
+  const aboutData = await client.fetch(query);
+
+  return (
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-8 bg-gradient-to-b from-red-500 to-rose-700">
+      {aboutData.map(
+        (item: {
+          _id: string;
+          title: string;
+          description: string;
+          imageUrl: string;
+          slug: string;
+        }) => (
+          <div
+            key={item._id}
+            className="max-w-4xl flex flex-col md:flex-row items-center bg-transparent p-6 space-y-6 md:space-y-0 md:space-x-6"
+          >
+            <img
+              src={item.imageUrl}
+              alt={item.title}
+              className="w-32 h-50 md:w-48 md:h-50 rounded-lg object-cover transform-gpu hover:scale-105 transition duration-300 ease-in-out border-4 border-transparent animate-border-gradient"
+              style={{
+                background: "linear-gradient(90deg, #ff7eb3, #ff758c, #ff6b6b)",
+                backgroundSize: "200% 200%",
+                animation: "borderGradient 3s ease infinite",
+              }}
+            />
+
+            <div className="text-center md:text-left">
+              <h1 className={`${ebGaramond.className} text-4xl font-bold text-rose-900 mb-2`}>
+                {item.title}
               </h1>
-              <h2 className="text-3xl mb-4 text-black dark:text-gray-300 font-semibold">
+              <h2 className={`${lora.className} text-2xl font-bold`}>
                 Frontend Developer
               </h2>
-              <p className="leading-relaxed text-lg text-gray-900 dark:text-gray-300">
-                As a driven front-end developer, I am advancing my skills through
-                a governor-initiated program, focused on mastering cutting-edge
-                technologies. With hands-on experience in HTML, CSS, TypeScript,
-                JavaScript, React, Next.js, and Tailwind, I have built a wide
-                array of real-world projects that reflect both creativity and a
-                solid grasp of modern development practices. My background in
-                digital marketing further strengthens my ability to create
-                user-focused solutions that not only perform well but also
-                resonate with audiences. I am committed to continuous growth and
-                contributing impactful solutions in the tech and marketing
-                landscapes.
-              </p>
-              <div className="flex justify-center space-x-4 mt-8">
-                <button className="inline-flex items-center justify-center text-white bg-gradient-to-r from-gray-700 to-black border-0 py-2 px-4 focus:outline-none hover:bg-gray-600 hover:shadow-xl transform hover:scale-110 transition-all duration-500 text-lg rounded-full animate-pulse">
-                  <Link href="https://github.com/yousrakhan23" target="_blank">
-                    <FaGithub size={26} />
-                  </Link>
-                </button>
-                <button className="inline-flex items-center justify-center text-white bg-gradient-to-r from-blue-500 to-blue-700 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 hover:shadow-xl transform hover:scale-110 transition-all duration-500 text-lg rounded-full animate-pulse">
-                  <Link
-                    href="https://www.linkedin.com/in/hafiza-yousra-khan-/"
-                    target="_blank"
-                  >
-                    <FaLinkedin size={26} />
-                  </Link>
-                </button>
-                <button className="inline-flex items-center justify-center text-white bg-gradient-to-r from-purple-800 to-pink-700 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 hover:shadow-xl transform hover:scale-110 transition-all duration-500 text-lg rounded-full animate-pulse">
-                  <Link
-                    href="https://www.instagram.com/_fumodoarishika/profilecard/?igsh=MWdpazkyOGVwdnd2MA=="
-                    target="_blank"
-                  >
-                    <FaSquareInstagram size={26} />
-                  </Link>
-                </button>
+              <p className={`${lora.className} text-yellow-600`}>{item.description}</p>
+              <div className="flex justify-center md:justify-start space-x-4 mt-4">
+                <a href="#" className="text-white hover:text-blue-400">
+                  <i className="fab fa-github"></i>
+                </a>
+                <a href="#" className="text-white hover:text-blue-600">
+                  <i className="fab fa-linkedin"></i>
+                </a>
+                <a href="#" className="text-white hover:text-pink-400">
+                  <i className="fab fa-instagram"></i>
+                </a>
               </div>
             </div>
           </div>
-        </div>
-        </section>
+        )
+      )}
+    </div>
   );
-};
-
-export default About;
+}

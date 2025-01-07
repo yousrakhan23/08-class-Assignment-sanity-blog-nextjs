@@ -5,6 +5,18 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+@keyframes borderGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 @layer utilities {
   .text-balance {
