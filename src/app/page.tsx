@@ -1,8 +1,15 @@
-import React from 'react'
 
+import React from 'react'
+import Blog from "../app/Blog/page"
+import About from "../app/About/page"
+import Contact from "../app/Contact/page"
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <Blog/>
+      <About />
+      <Contact />
+    </div>
   )
 }
 

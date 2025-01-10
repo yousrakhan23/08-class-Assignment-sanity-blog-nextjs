@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { EB_Garamond } from "next/font/google";
-import { Lora } from "next/font/google";
 const ebGaramond = EB_Garamond({ weight: "800", subsets: ["latin"] });
-const lora = Lora({ weight: "700", subsets: ["latin"] });
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",

@@ -46,7 +46,7 @@ export default async function HomePage() {
               />
             )}
             <div className="p-4 text-center">
-              <Link href={`/blog/${blog.slug.current}`}>
+              <Link href={`/Blog/${blog.slug.current}`}>
                 <button className={`${ebGaramond.className} bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500 text-black px-4 py-2 rounded hover:bg-gradient-to-r hover:from-pink-500 hover:via-yellow-400 hover:to-red-500 transition`}>
                   Read More
                 </button>
